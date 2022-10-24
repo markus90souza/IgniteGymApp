@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "igniteGym",
+    "slug": "igniteGym",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
