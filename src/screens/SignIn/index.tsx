@@ -4,8 +4,16 @@ import bgCover from '@assets/background.png'
 import Logo from '@assets/logo.svg'
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
+import { useNavigation } from '@react-navigation/native'
+import { AuthNavigatorRoutesProps } from '@routes/auth.routes'
 
 const SignIn = () => {
+  const { navigate } = useNavigation<AuthNavigatorRoutesProps>()
+
+  const handleGoSignUp = () => {
+    navigate('signUp')
+  }
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -14,6 +22,7 @@ const SignIn = () => {
       <VStack flex={1} safeArea bgColor={'gray.700'} px={10}>
         <Image
           source={bgCover}
+          defaultSource={bgCover}
           alt={'Pessoas trienandos'}
           position={'absolute'}
           resizeMode={'contain'}
@@ -48,7 +57,11 @@ const SignIn = () => {
           <Text color={'gray.100'} fontFamily={'body'} fontSize={'sm'} mb={3}>
             Ainda não tem acesso ?
           </Text>
-          <Button name={'Criar conta'} variant={'outline'} />
+          <Button
+            name={'Criar conta'}
+            variant={'outline'}
+            onPress={handleGoSignUp}
+          />
         </Center>
       </VStack>
     </ScrollView>

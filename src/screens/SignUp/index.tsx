@@ -4,8 +4,16 @@ import bgCover from '@assets/background.png'
 import Logo from '@assets/logo.svg'
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
+import { useNavigation } from '@react-navigation/native'
+import { AuthNavigatorRoutesProps } from '@routes/auth.routes'
 
 const SignUp = () => {
+  const { goBack } = useNavigation<AuthNavigatorRoutesProps>()
+
+  const handleGoBack = () => {
+    goBack()
+  }
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -14,6 +22,7 @@ const SignUp = () => {
       <VStack flex={1} safeArea bgColor={'gray.700'} px={10}>
         <Image
           source={bgCover}
+          defaultSource={bgCover}
           alt={'Pessoas trienandos'}
           position={'absolute'}
           resizeMode={'contain'}
@@ -54,6 +63,7 @@ const SignUp = () => {
           marginTop={24}
           name={'Voltar para o login'}
           variant={'outline'}
+          onPress={handleGoBack}
         />
       </VStack>
     </ScrollView>

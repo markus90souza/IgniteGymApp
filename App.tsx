@@ -8,7 +8,8 @@ import {
 
 import { Loading } from '@components/Loading'
 import { appTheme } from '@theme/index'
-import { SignIn } from '@screens/SignIn'
+
+import { AppRoutes } from '@routes/index'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -22,7 +23,7 @@ export default function App() {
         translucent
         barStyle={'light-content'}
       />
-      {fontsLoaded ? <SignIn /> : <Loading />}
+      {fontsLoaded ? <AppRoutes /> : <Loading />}
     </NativeBaseProvider>
   )
 }
