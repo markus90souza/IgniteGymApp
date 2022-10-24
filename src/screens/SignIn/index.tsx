@@ -2,10 +2,11 @@ import { Center, Heading, Image, Text, VStack } from 'native-base'
 
 import bgCover from '@assets/background.png'
 import Logo from '@assets/logo.svg'
+import { Input } from '@components/Input'
 
 const SignIn = () => {
   return (
-    <VStack flex={1} safeArea bgColor={'gray.700'}>
+    <VStack flex={1} safeArea bgColor={'gray.700'} px={10}>
       <Image
         source={bgCover}
         alt={'Pessoas trienandos'}
@@ -28,6 +29,15 @@ const SignIn = () => {
         >
           Acesse sua conta
         </Heading>
+
+        <Input
+          placeholder="E-mail"
+          mb={4}
+          autoCapitalize={'none'}
+          autoCorrect={false}
+          keyboardType={'email-address'}
+        />
+        <Input placeholder="Senha" mb={4} secureTextEntry />
       </Center>
     </VStack>
   )
