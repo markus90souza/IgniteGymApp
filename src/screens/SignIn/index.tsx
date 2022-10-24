@@ -3,6 +3,7 @@ import { Center, Heading, Image, Text, VStack } from 'native-base'
 import bgCover from '@assets/background.png'
 import Logo from '@assets/logo.svg'
 import { Input } from '@components/Input'
+import { Button } from '@components/Button'
 
 const SignIn = () => {
   return (
@@ -29,7 +30,6 @@ const SignIn = () => {
         >
           Acesse sua conta
         </Heading>
-
         <Input
           placeholder="E-mail"
           mb={4}
@@ -38,6 +38,8 @@ const SignIn = () => {
           keyboardType={'email-address'}
         />
         <Input placeholder="Senha" mb={4} secureTextEntry />
+        <Button name={'Acessar'} />
+        <Button name={'Criar conta'} marginTop={4} variant={'outline'} />
       </Center>
     </VStack>
   )
