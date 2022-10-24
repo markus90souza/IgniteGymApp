@@ -1,5 +1,5 @@
 import { StatusBar } from 'react-native'
-import { NativeBaseProvider, Box } from 'native-base'
+import { NativeBaseProvider } from 'native-base'
 import {
   useFonts,
   Roboto_400Regular,
@@ -8,6 +8,7 @@ import {
 
 import { Loading } from '@components/Loading'
 import { appTheme } from '@theme/index'
+import { SignIn } from '@screens/SignIn'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,7 +22,7 @@ export default function App() {
         translucent
         barStyle={'light-content'}
       />
-      {!fontsLoaded ? <Box>Fontes Carregadas</Box> : <Loading />}
+      {fontsLoaded ? <SignIn /> : <Loading />}
     </NativeBaseProvider>
   )
 }
