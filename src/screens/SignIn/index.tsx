@@ -1,4 +1,4 @@
-import { Center, Image, Text, VStack } from 'native-base'
+import { Center, Heading, Image, Text, VStack } from 'native-base'
 
 import bgCover from '@assets/background.png'
 import Logo from '@assets/logo.svg'
@@ -18,6 +18,16 @@ const SignIn = () => {
         <Text color={'gray.100'} fontSize={'sm'}>
           Treine sua mente e sue corpo
         </Text>
+      </Center>
+      <Center>
+        <Heading
+          fontFamily={'heading'}
+          fontSize={'xl'}
+          color={'gray.100'}
+          mb={6}
+        >
+          Acesse sua conta
+        </Heading>
       </Center>
     </VStack>
   )
