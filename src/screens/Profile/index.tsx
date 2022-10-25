@@ -1,10 +1,11 @@
-import { Center, Text } from 'native-base'
+import { VStack } from 'native-base'
+import { Header } from '@components/Header'
 
 const Profile = () => {
   return (
-    <Center flex={1} bgColor={'gray.700'}>
-      <Text color={'gray.100'}>Profile</Text>
-    </Center>
+    <VStack flex={1} bgColor={'gray.700'}>
+      <Header title={'Perfil'} />
+    </VStack>
   )
 }
 

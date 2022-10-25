@@ -7,6 +7,7 @@ import { ExerciseCard } from '@components/Cards/ExerciseCard'
 const Home = () => {
   const [isSelectedGroup, setIsSelectedGroup] = useState('')
 
+  // eslint-disable-next-line no-unused-vars
   const [groups, setGroups] = useState([
     'costas',
     'ombros',
@@ -24,7 +25,9 @@ const Home = () => {
           <Group
             key={index}
             name={item}
-            isActive={isSelectedGroup === item}
+            isActive={
+              isSelectedGroup.toLocaleUpperCase() === item.toLocaleUpperCase()
+            }
             onPress={() => setIsSelectedGroup(item)}
             mr={3}
           />
@@ -52,6 +55,10 @@ const Home = () => {
         <FlatList
           data={['1', '2', '3', '4', '5', '6']}
           renderItem={() => <ExerciseCard />}
+          _contentContainerStyle={{
+            paddingBottom: 20,
+          }}
+          showsVerticalScrollIndicator={false}
         />
       </VStack>
     </VStack>
