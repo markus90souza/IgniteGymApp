@@ -20,6 +20,7 @@ const History = () => {
       <SectionList
         sections={exercises}
         keyExtractor={(item) => item}
+        showsVerticalScrollIndicator={false}
         renderSectionHeader={({ section }) => (
           <Heading
             color={'gray.200'}
