@@ -9,7 +9,7 @@ import {
 import { Loading } from '@components/Loading'
 import { appTheme } from '@theme/index'
 
-import { AppRoutes } from '@routes/index'
+import { Routes } from '@routes/index'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,7 +23,7 @@ export default function App() {
         translucent
         barStyle={'light-content'}
       />
-      {fontsLoaded ? <AppRoutes /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </NativeBaseProvider>
   )
 }

@@ -1,15 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { Box } from 'native-base'
-import { AuthRoutes } from './auth.routes'
+import { AppRoutes } from './app.routes'
+// import { AuthRoutes } from './auth.routes'
 
-const AppRoutes = () => {
+const Routes = () => {
   return (
     <Box flex={1} bgColor={'gray.700'}>
       <NavigationContainer>
-        <AuthRoutes />
+        <AppRoutes />
       </NavigationContainer>
     </Box>
   )
 }
 
-export { AppRoutes }
+export { Routes }
