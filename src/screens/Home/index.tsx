@@ -3,10 +3,12 @@ import { FlatList, Heading, HStack, Text, VStack } from 'native-base'
 import { HomeHeader } from '@components/HomeHeader'
 import { Group } from '@components/Group'
 import { ExerciseCard } from '@components/Cards/ExerciseCard'
+import { useNavigation } from '@react-navigation/native'
+import { AppNavigatorRoutesApp } from '@routes/app.routes'
 
 const Home = () => {
   const [isSelectedGroup, setIsSelectedGroup] = useState('')
-
+  const { navigate } = useNavigation<AppNavigatorRoutesApp>()
   // eslint-disable-next-line no-unused-vars
   const [groups, setGroups] = useState([
     'costas',
@@ -14,6 +16,11 @@ const Home = () => {
     'bicips',
     'tricips',
   ])
+
+  const handleOpenExerciseDetails = () => {
+    navigate('exercise')
+  }
+
   return (
     <VStack flex={1} bgColor={'gray.700'}>
       <HomeHeader />
@@ -54,7 +61,9 @@ const Home = () => {
 
         <FlatList
           data={['1', '2', '3', '4', '5', '6']}
-          renderItem={() => <ExerciseCard />}
+          renderItem={() => (
+            <ExerciseCard onPress={handleOpenExerciseDetails} />
+          )}
           _contentContainerStyle={{
             paddingBottom: 20,
           }}

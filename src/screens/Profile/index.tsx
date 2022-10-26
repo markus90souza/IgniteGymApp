@@ -10,7 +10,6 @@ import {
 } from 'native-base'
 import { Header } from '@components/Header'
 import { UserPhoto } from '@components/UserPhoto'
-
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
 
