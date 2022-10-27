@@ -1,27 +1,39 @@
-import { Input as NBInput, IInputProps } from 'native-base'
+import { Input as NBInput, IInputProps, FormControl } from 'native-base'
 
-type InputProps = IInputProps & {}
+type InputProps = IInputProps & {
+  errorMessage?: string | null
+}
 
-const Input = ({ ...rest }: InputProps) => {
+const Input = ({ errorMessage = null, isInvalid, ...rest }: InputProps) => {
+  const invalid = !!errorMessage || isInvalid
   return (
-    <NBInput
-      bgColor={'gray.700'}
-      rounded={'sm'}
-      w={'full'}
-      h={14}
-      px={4}
-      borderWidth={0}
-      color={'white'}
-      fontSize={'md'}
-      fontFamily={'body'}
-      placeholderTextColor={'gray.300'}
-      _focus={{
-        bgColor: 'gray.700',
-        borderWidth: 1,
-        borderColor: 'green.500',
-      }}
-      {...rest}
-    />
+    <FormControl isInvalid={invalid} marginBottom={4}>
+      <NBInput
+        bgColor={'gray.700'}
+        rounded={'sm'}
+        w={'full'}
+        h={14}
+        px={4}
+        borderWidth={0}
+        color={'white'}
+        fontSize={'md'}
+        fontFamily={'body'}
+        placeholderTextColor={'gray.300'}
+        isInvalid={invalid}
+        _invalid={{
+          borderWidth: 1,
+          borderColor: 'red.500',
+        }}
+        _focus={{
+          bgColor: 'gray.700',
+          borderWidth: 1,
+          borderColor: 'green.500',
+        }}
+        {...rest}
+      />
+
+      <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
+    </FormControl>
   )
 }
 
