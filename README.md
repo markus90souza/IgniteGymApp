@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Ignite gym" height="80" title="Ignite gym" src=".github/logo.png" />
+  <img alt="Ignite gym" height="80" title="Ignite gym" src=".github/icon.png" />
 </h1>
 
 <p align="center">
