@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   Box,
+  ScrollView,
 } from 'native-base'
 import { useNavigation } from '@react-navigation/native'
 import { AppNavigatorRoutesApp } from '@routes/app.routes'
@@ -62,41 +63,43 @@ const Exercise = () => {
       </VStack>
 
       <VStack p={8}>
-        <Image
-          w={'full'}
-          h={80}
-          source={{ uri: 'https://github.com/markus90souza.png' }}
-          alt={'eueuue'}
-          resizeMode={'cover'}
-          rounded={'lg'}
-          mb={3}
-          overflow={'hidden'}
-        />
+        <ScrollView>
+          <Image
+            w={'full'}
+            h={80}
+            source={{ uri: 'https://github.com/markus90souza.png' }}
+            alt={'eueuue'}
+            resizeMode={'cover'}
+            rounded={'lg'}
+            mb={3}
+            overflow={'hidden'}
+          />
 
-        <Box bg={'gray.600'} rounded={'lg'} pb={4} px={4}>
-          <HStack
-            mt={5}
-            mb={6}
-            justifyContent={'space-around'}
-            alignItems={'center'}
-          >
-            <HStack>
-              <SeriesIcon />
-              <Text color={'gray.200'} ml={2}>
-                3 Séries
-              </Text>
+          <Box bg={'gray.600'} rounded={'lg'} pb={4} px={4}>
+            <HStack
+              mt={5}
+              mb={6}
+              justifyContent={'space-around'}
+              alignItems={'center'}
+            >
+              <HStack>
+                <SeriesIcon />
+                <Text color={'gray.200'} ml={2}>
+                  3 Séries
+                </Text>
+              </HStack>
+
+              <HStack>
+                <RepetitionsIcon />
+                <Text color={'gray.200'} ml={2}>
+                  12 Repetições
+                </Text>
+              </HStack>
             </HStack>
 
-            <HStack>
-              <RepetitionsIcon />
-              <Text color={'gray.200'} ml={2}>
-                12 Repetições
-              </Text>
-            </HStack>
-          </HStack>
-
-          <Button name="Marcar como realizado" />
-        </Box>
+            <Button name="Marcar como realizado" />
+          </Box>
+        </ScrollView>
       </VStack>
     </VStack>
   )

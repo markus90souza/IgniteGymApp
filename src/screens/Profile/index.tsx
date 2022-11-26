@@ -35,12 +35,14 @@ const Profile = () => {
         quality: 1,
       })
 
-      if (photoSelected.cancelled) {
+      if (photoSelected.canceled) {
         return
       }
 
-      if (photoSelected.uri) {
-        const photoInfo = await FileSystem.getInfoAsync(photoSelected.uri)
+      if (photoSelected.assets[0].uri) {
+        const photoInfo = await FileSystem.getInfoAsync(
+          photoSelected.assets[0].uri,
+        )
         console.log(photoInfo.size)
 
         const imageSize = photoInfo.size
@@ -52,7 +54,7 @@ const Profile = () => {
             bgColor: 'red.500',
           })
         }
-        setUserPhoto(photoSelected.uri)
+        setUserPhoto(photoSelected.assets[0].uri)
       }
     } catch (error) {
       console.log(error)

@@ -47,6 +47,7 @@ const Home = () => {
         my={10}
         marginRight={3}
         maxHeight={10}
+        minHeight={10}
       />
 
       <VStack flex={1} paddingX={8}>
