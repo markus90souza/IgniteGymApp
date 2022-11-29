@@ -21,6 +21,8 @@ import { AuthNavigatorRoutesProps } from '@routes/auth.routes'
 import { api } from '@services/api'
 
 import { AppError } from '@utils/appError'
+import { useAuth } from '@hooks/useAuth'
+import { useState } from 'react'
 
 type FormData = {
   name: string
@@ -49,7 +51,9 @@ const signUpSchema = yup.object({
 const SignUp = () => {
   const { goBack } = useNavigation<AuthNavigatorRoutesProps>()
 
+  const [isLoading, setIsLoading] = useState(false)
   const toast = useToast()
+  const { signIn } = useAuth()
   const {
     control,
     handleSubmit,
@@ -63,14 +67,16 @@ const SignUp = () => {
 
   const onHandleSignUp = async ({ name, email, password }: FormData) => {
     try {
-      const { data } = await api.post('/users', {
+      setIsLoading(true)
+      await api.post('/users', {
         name,
         email,
         password,
       })
 
-      console.log(data)
+      await signIn(email, password)
     } catch (e) {
+      setIsLoading(false)
       const isAppError = e instanceof AppError
 
       const title = isAppError
@@ -182,6 +188,7 @@ const SignUp = () => {
           <Button
             name={'Criar e acessar'}
             onPress={handleSubmit(onHandleSignUp)}
+            isLoading={isLoading}
           />
         </Center>
 

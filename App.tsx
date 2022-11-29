@@ -10,6 +10,7 @@ import { Loading } from '@components/Loading'
 import { appTheme } from '@theme/index'
 
 import { Routes } from '@routes/index'
+import { AuthContextProvider } from '@contexts/AuthContext'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,7 +24,9 @@ export default function App() {
         translucent
         barStyle={'light-content'}
       />
-      {fontsLoaded ? <Routes /> : <Loading />}
+      <AuthContextProvider>
+        {fontsLoaded ? <Routes /> : <Loading />}
+      </AuthContextProvider>
     </NativeBaseProvider>
   )
 }
