@@ -6,6 +6,11 @@ import {
   saveUserStorage,
   removeUserStorage,
 } from '@storage/storageUser'
+import {
+  saveTokenStorage,
+  getTokenStorage,
+  removeTokenStorage,
+} from '@storage/storageAuthToken'
 
 export type AuthContextDataProps = {
   user: UserDTO
@@ -28,20 +33,47 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
   const [isloadingUserStorage, setIsloadingUserStorage] = useState(true)
 
+  const updateUserAndTokenStorage = async (user: UserDTO, token: string) => {
+    try {
+      setIsloadingUserStorage(true)
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
+      setUser(user)
+    } catch (error) {
+      throw error
+    } finally {
+      setIsloadingUserStorage(false)
+    }
+  }
+
+  const saveUserAndTokenStorage = async (user: UserDTO, token: string) => {
+    try {
+      setIsloadingUserStorage(true)
+      await saveUserStorage(user)
+      await saveTokenStorage(token)
+    } catch (error) {
+      throw error
+    } finally {
+      setIsloadingUserStorage(false)
+    }
+  }
+
   const signIn = async (email: string, password: string) => {
-    // eslint-disable-next-line no-useless-catch
     try {
       const { data } = await api.post('/sessions', {
         email,
         password,
       })
 
-      if (data.user) {
-        setUser(data.user)
-        saveUserStorage(data.user)
+      if (data.user && data.token) {
+        setIsloadingUserStorage(true)
+
+        await saveUserAndTokenStorage(data.user, data.token)
+        await updateUserAndTokenStorage(data.user, data.token)
       }
     } catch (error) {
       throw error
+    } finally {
+      setIsloadingUserStorage(false)
     }
   }
 
@@ -50,6 +82,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       setIsloadingUserStorage(true)
       setUser({} as UserDTO)
       await removeUserStorage()
+      await removeTokenStorage()
     } catch (error) {
       throw error
     } finally {
@@ -59,10 +92,13 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
   const getUserStorageData = async () => {
     try {
+      setIsloadingUserStorage(true)
       const userLogged = await getUserStorage()
 
-      if (userLogged) {
-        setUser(userLogged)
+      const token = await getTokenStorage()
+
+      if (token && userLogged) {
+        await updateUserAndTokenStorage(userLogged, token)
       }
     } catch (error) {
       throw error

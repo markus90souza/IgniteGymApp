@@ -3,6 +3,10 @@
     "name": "igniteGym",
     "slug": "igniteGym",
     "version": "1.0.0",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#25292e"
+    },
     "plugins": [
       [
         "expo-image-picker",
