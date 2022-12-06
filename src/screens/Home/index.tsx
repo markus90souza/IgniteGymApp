@@ -22,15 +22,16 @@ const Home = () => {
   const [isSelectedGroup, setIsSelectedGroup] = useState('antebraço')
   const [isLoading, setIsLoading] = useState(true)
 
-  const handleOpenExerciseDetails = () => {
-    navigate('exercise')
+  const handleOpenExerciseDetails = (id: string) => {
+    navigate('exercise', {
+      exerciseId: id,
+    })
   }
 
   const getGroups = async () => {
     try {
       const { data } = await api.get('/groups')
       setGroups(data)
-      console.log(data)
     } catch (error) {
       const isAppError = error instanceof AppError
 
@@ -124,7 +125,10 @@ const Home = () => {
             data={exercises}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <ExerciseCard data={item} onPress={handleOpenExerciseDetails} />
+              <ExerciseCard
+                data={item}
+                onPress={() => handleOpenExerciseDetails(item.id)}
+              />
             )}
             _contentContainerStyle={{
               paddingBottom: 20,
