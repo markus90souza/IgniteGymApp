@@ -10,11 +10,16 @@ import {
 } from 'native-base'
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { CaretRight } from 'phosphor-react-native'
+import { ExerciseDTO } from '@dtos/ExerciseDTO'
+import { api } from '@services/api'
 
-type ExerciseCardProps = TouchableOpacityProps & {}
+type ExerciseCardProps = TouchableOpacityProps & {
+  data: ExerciseDTO
+}
 
-export function ExerciseCard({ ...rest }: ExerciseCardProps) {
+export function ExerciseCard({ data, ...rest }: ExerciseCardProps) {
   const { colors, sizes } = useTheme()
+
   return (
     <TouchableOpacity {...rest}>
       <HStack
@@ -26,7 +31,9 @@ export function ExerciseCard({ ...rest }: ExerciseCardProps) {
         mb={3}
       >
         <Image
-          source={{ uri: 'https://github.com/markus90souza.png' }}
+          source={{
+            uri: `${api.defaults.baseURL}/exercise/thumb/${data.thumb}`,
+          }}
           alt="uuuu"
           w={16}
           h={16}
@@ -37,7 +44,7 @@ export function ExerciseCard({ ...rest }: ExerciseCardProps) {
 
         <VStack flex={1}>
           <Heading fontSize={'lg'} color={'white'}>
-            {'Remada lateral'}
+            {data.name}
           </Heading>
           <Text
             fontSize={'sm'}
@@ -45,7 +52,7 @@ export function ExerciseCard({ ...rest }: ExerciseCardProps) {
             marginTop={1}
             numberOfLines={2}
           >
-            {'3x séries x 12 repetições'}
+            {data.series}x séries x {data.repetitions} repetições
           </Text>
         </VStack>
 
