@@ -1,7 +1,11 @@
 import React from 'react'
 import { Heading, HStack, Text, VStack } from 'native-base'
+import { HistoryDTO } from '@dtos/HistoryDTO'
 
-export function HistoryCard() {
+type HistoryCardProps = {
+  data: HistoryDTO
+}
+export function HistoryCard({ data }: HistoryCardProps) {
   return (
     <HStack
       w={'full'}
@@ -15,14 +19,14 @@ export function HistoryCard() {
     >
       <VStack marginRight={5} flex={1}>
         <Heading color={'white'} fontSize={'md'} textTransform={'capitalize'}>
-          {'Costas'}
+          {data.group}
         </Heading>
         <Text color={'gray.100'} fontSize={'lg'} numberOfLines={1}>
-          {'Puxada lateral'}
+          {data.name}
         </Text>
       </VStack>
       <Text color={'gray.300'} fontSize={'md'}>
-        {'08:00'}
+        {data.hour}
       </Text>
     </HStack>
   )

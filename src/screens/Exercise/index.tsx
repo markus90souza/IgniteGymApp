@@ -33,11 +33,12 @@ type IParams = {
 const Exercise = () => {
   const { colors, sizes } = useTheme()
   const toast = useToast()
-  const { goBack } = useNavigation<AppNavigatorRoutesApp>()
+  const { goBack, navigate } = useNavigation<AppNavigatorRoutesApp>()
   const { params } = useRoute()
   const { exerciseId } = params as IParams
   const [exercise, setExercise] = useState<ExerciseDTO>({} as ExerciseDTO)
   const [isLoading, setIsLoading] = useState(true)
+  const [sendingRegisterHistory, setSendingRegisterHistory] = useState(false)
 
   const handleGoBack = () => {
     goBack()
@@ -48,7 +49,6 @@ const Exercise = () => {
       setIsLoading(true)
       const { data } = await api(`/exercises/${exerciseId}`)
       setExercise(data)
-      console.log(data)
     } catch (error) {
       const isAppError = error instanceof AppError
 
@@ -66,9 +66,40 @@ const Exercise = () => {
     }
   }
 
+  const handleExerciseHistoryAdd = async () => {
+    try {
+      setSendingRegisterHistory(true)
+
+      await api.post('/history', { exercise_id: exerciseId })
+
+      toast.show({
+        title: 'Parabéns, exercicio adicionando ao seu historico',
+        placement: 'top',
+        bgColor: 'green.500',
+      })
+
+      navigate('history')
+    } catch (error) {
+      const isAppError = error instanceof AppError
+
+      const title = isAppError
+        ? error.message
+        : 'Não foi possivel carregar os exercicios pelo id, tente novamente mais tarde!'
+
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      })
+    } finally {
+      setSendingRegisterHistory(false)
+    }
+  }
+
   useEffect(() => {
     getExercisesById()
   }, [exerciseId])
+
   return (
     <VStack flex={1} bg={'gray.700'}>
       <VStack paddingX={8} paddingTop={12} bgColor={'gray.600'}>
@@ -142,7 +173,11 @@ const Exercise = () => {
                 </HStack>
               </HStack>
 
-              <Button name="Marcar como realizado" />
+              <Button
+                name="Marcar como realizado"
+                onPress={handleExerciseHistoryAdd}
+                isLoading={sendingRegisterHistory}
+              />
             </Box>
           </ScrollView>
         </VStack>

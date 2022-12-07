@@ -3,6 +3,7 @@
   "rules": {
     "camelcase": "off",
     "no-useless-catch": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "no-unused-vars": "off"
   }
 }

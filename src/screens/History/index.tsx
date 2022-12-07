@@ -1,25 +1,50 @@
-import { useState } from 'react'
-import { Heading, SectionList, Text, VStack } from 'native-base'
+import { useCallback, useState } from 'react'
+import { Heading, SectionList, Text, useToast, VStack } from 'native-base'
 import { Header } from '@components/Header'
 import { HistoryCard } from '@components/Cards/HistoryCard'
+import { api } from '@services/api'
+import { AppError } from '@utils/appError'
+import { useFocusEffect } from '@react-navigation/native'
+import { HistoryGroupByDayDTO } from '@dtos/HistoryDTO'
 
 const History = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [exercises, setexercises] = useState([
-    { title: '02.09.2022', data: ['Puxado frontal', 'Remada unilateral'] },
-    { title: '03.09.2022', data: ['Puxado frontal', 'Remada unilateral'] },
-    { title: '03.09.2022', data: ['Puxado frontal', 'Remada unilateral'] },
-    { title: '03.09.2022', data: ['Puxado frontal', 'Remada unilateral'] },
-    { title: '03.09.2022', data: ['Puxado frontal', 'Remada unilateral'] },
-    { title: '03.09.2022', data: ['Puxado frontal', 'Remada unilateral'] },
-  ])
+  const [history, setHistory] = useState<HistoryGroupByDayDTO[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const toast = useToast()
+
+  const getHistory = async () => {
+    try {
+      setIsLoading(true)
+      const { data } = await api('/history')
+      setHistory(data)
+    } catch (error) {
+      const isAppError = error instanceof AppError
+
+      const title = isAppError
+        ? error.message
+        : 'Não foi possivel carregar historico de exercicios, tente novamente mais tarde!'
+
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+  useFocusEffect(
+    useCallback(() => {
+      getHistory()
+    }, []),
+  )
   return (
     <VStack flex={1} bgColor={'gray.700'}>
       <Header title={'Histórico de Exercícios'} />
 
       <SectionList
-        sections={exercises}
-        keyExtractor={(item) => item}
+        sections={history}
+        keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderSectionHeader={({ section }) => (
           <Heading
@@ -31,9 +56,9 @@ const History = () => {
             {section.title}
           </Heading>
         )}
-        renderItem={({ item }) => <HistoryCard />}
+        renderItem={({ item }) => <HistoryCard data={item} />}
         contentContainerStyle={
-          exercises.length === 0 && {
+          history.length === 0 && {
             flex: 1,
             justifyContent: 'center',
           }
