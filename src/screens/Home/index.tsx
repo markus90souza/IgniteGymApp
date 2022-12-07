@@ -117,7 +117,7 @@ const Home = () => {
               Exercicios
             </Heading>
             <Text fontSize={'sm'} color={'gray.200'}>
-              4
+              {exercises.length}
             </Text>
           </HStack>
 
